@@ -1,0 +1,101 @@
+[
+    {
+        "model": "oauth.Resource",
+        "pk": 1,
+        "fields": {
+            "name": "Example resource",
+            "url": "http:\/\/api.example.com"
+        }
+    },
+    {
+        "model": "oauth.ClientCredential",
+        "pk": 1,
+        "fields": {
+            "key": "ZODQ6jFmoV8Zo5X4ZviVc_89DGdxcBShDhXGkDKJuc8=",
+            "secret": "keW4QzW5BQUtAtd8UbhV8qg4SESbqQVn",
+            "name": "Example client",
+            "callback": "http:\/\/api.example.com/ready",
+            "user": 1
+        }
+    },
+    {
+        "model": "oauth.Nonce",
+        "pk": 1,
+        "fields": {
+            "key": 1,
+            "nonce": "12345678910",
+            "timestamp": 987654321
+        }
+    },
+    {
+        "model": "oauth.Nonce",
+        "pk": 2,
+        "fields": {
+            "key": 1,
+            "nonce": "78910",
+            "timestamp": 987321,
+            "request_token": "MCRAfO5A7l6pN4QEOePAE4="
+        }
+    },
+    {
+        "model": "oauth.Nonce",
+        "pk": 3,
+        "fields": {
+            "key": 1,
+            "nonce": "12345",
+            "timestamp": 4321,
+            "access_token": "n8M0vUNmdwCgQ4"
+        }
+    },
+    {
+        "model": "oauth.Token",
+        "pk": 1,
+        "fields": {
+            "token_type": 1,
+            "resource": 1,
+            "client_key": 1,
+            "key": "0QSpixu2mFe-DhJBavQhYz2iCdGS8xYwUegfSUHF",
+            "secret": "z5HYNBKZWedsvgtaZUVaQhHmpYeJjb",
+            "timestamp": "2012-06-12T22:01:23.000663-06:00"
+        }
+    },
+    {
+        "model": "oauth.Token",
+        "pk": 2,
+        "fields": {
+            "token_type": 2,
+            "resource": 1,
+            "client_key": 1,
+            "key": "0QSpixu2mFe-DhJBavQhYz2iCdGS8xYwUegfSUHF",
+            "secret": "z5HYNBKZWedsvgtaZUVaQhHmpYeJjb",
+            "timestamp": "2012-06-12T22:01:23.000663-06:00"
+        }
+    },
+    {
+        "model": "oauth.Realm",
+        "pk": 1,
+        "fields": {
+            "name": "test",
+            "client_key": 1
+        }
+    },
+    {
+        "model": "oauth.Realm",
+        "pk": 2,
+        "fields": {
+            "name": "tokentest",
+            "client_key": 1,
+            "access_token": 2
+        }
+    },
+    {
+        "model": "oauth.Realm",
+        "pk": 3,
+        "fields": {
+            "name": "urltest",
+            "client_key": 1,
+            "url": "http://some.realm.com"
+
+        }
+    }
+]

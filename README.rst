@@ -21,6 +21,15 @@ Usage
 
 To follow.
 
+Tests
+-----
+
+Create a virtualenv first, then::
+
+    pip install -U -r requirements.txt
+    cd tests
+    ./run_tests.sh
+
 License
 -------
 

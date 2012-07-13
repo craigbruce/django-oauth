@@ -1,0 +1,16 @@
+[
+    {
+        "model": "oauth.TokenType",
+        "pk": 1,
+        "fields": {
+            "token_type": "request"
+        }
+    },
+    {
+        "model": "oauth.TokenType",
+        "pk": 2,
+        "fields": {
+            "token_type": "access"
+        }
+    }
+]
