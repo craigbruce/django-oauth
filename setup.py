@@ -1,5 +1,7 @@
 import os
 from setuptools import setup
+from distribute_setup import use_setuptools
+use_setuptools()
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -15,6 +17,7 @@ setup(
     url = "https://github.com/craigbruce/django-oauthlib",
     packages=['oauth', 'tests'],
     long_description=read('README.rst'),
+    install_requires = ['docutils>=0.3'],
     requires=[
         'django(==1.4)',
         'oauthlib(>=0.3.0)',
