@@ -1,5 +1,6 @@
 from django.http import HttpResponse
-from oauthlib.oauth1.rfc5849.utils import urlencode  # Django also has an urlencode method
+# Django also has an urlencode method
+from oauthlib.oauth1.rfc5849.utils import urlencode
 from oauth.server import OAuthServer
 
 
@@ -20,8 +21,20 @@ def temporary_credentials_request(request):
 #        'oauth_signature': 7
 #    })
 
-    authorized = OAuthServer.verify_request(request.build_absolute_uri(), request.method, request.body, request.META, require_resource_owner=False)
-    #authorized = OAuthServer.verify_request(uri, http_method, body, headers, require_resource_owner=False)
+    authorized = OAuthServer.verify_request(
+        request.build_absolute_uri(),
+        request.method,
+        request.body,
+        request.META,
+        require_resource_owner=False
+    )
+#    authorized = OAuthServer.verify_request(
+#        uri,
+#        http_method,
+#        body,
+#        headers,
+#        require_resource_owner=False
+#    )
 
 #    response = urlencode({
 #        'oauth_token': 1,
@@ -29,11 +42,13 @@ def temporary_credentials_request(request):
 #        'oauth_callback_confirmed': 'true'
 #    })
 
-    #response = "%s %s" % request.META['Authorization'], request.META['QUERY_STRING']
+    #response = "%s %s" % request.META['Authorization'],
+    # request.META['QUERY_STRING']
     response = "%s" % t
 
     return HttpResponse(response)
-    #return HttpResponse(response, content_type='application/x-www-form-urlencoded')
+    #return HttpResponse(response,
+    #                    content_type='application/x-www-form-urlencoded')
 
 
 def user_authorization(request):

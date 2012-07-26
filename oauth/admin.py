@@ -1,5 +1,6 @@
 from django.contrib import admin
-from oauth.models import ClientCredential, Nonce, TokenType, Token, Resource, Realm
+from oauth.models import ClientCredential, Nonce, TokenType, Token,\
+    Resource, Realm
 
 
 class ClientCredentialsOptions(admin.ModelAdmin):
@@ -7,7 +8,8 @@ class ClientCredentialsOptions(admin.ModelAdmin):
 
 
 class NonceOptions(admin.ModelAdmin):
-    list_display = ('id', 'key', 'nonce', 'request_token', 'access_token', 'timestamp')
+    list_display = ('id', 'key', 'nonce', 'request_token', 'access_token',
+                    'timestamp')
 
 
 class TokenTypeOptions(admin.ModelAdmin):
@@ -15,7 +17,8 @@ class TokenTypeOptions(admin.ModelAdmin):
 
 
 class TokenOptions(admin.ModelAdmin):
-    list_display = ('id', 'token_type', 'resource', 'client_key', 'key', 'secret', 'timestamp')
+    list_display = ('id', 'token_type', 'resource', 'client_key',
+                    'key', 'secret', 'timestamp')
 
 
 class ResourceOptions(admin.ModelAdmin):

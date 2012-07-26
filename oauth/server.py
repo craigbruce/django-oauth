@@ -28,13 +28,16 @@ class OAuthServer(Server):
         n = Nonce.objects.filter(key=c)
         if n.exists():
             #client_key has been used before
-            matches = n.filter(nonce=nonce, timestamp=timestamp, request_token=request_token,
+            matches = n.filter(nonce=nonce, timestamp=timestamp,
+                               request_token=request_token,
                                access_token=access_token)
             if matches.exists():
-                #nonce/timestamp/request_token/access_token combo have been used before
+                # nonce/timestamp/request_token/access_token
+                # combo have been used before
                 return False
 
-        Nonce.objects.create(nonce=nonce, timestamp=timestamp, key=c, request_token=request_token,
+        Nonce.objects.create(nonce=nonce, timestamp=timestamp,
+                             key=c, request_token=request_token,
                              access_token=access_token)
 
         key = None
@@ -56,7 +59,8 @@ class OAuthServer(Server):
     def validate_request_token(self, client_key, request_token):
 
         try:
-            t = Token.objects.filter(client_key__key=client_key, key=request_token, token_type=1)
+            t = Token.objects.filter(client_key__key=client_key,
+                                     key=request_token, token_type=1)
         except ObjectDoesNotExist:
             return False
 
@@ -68,7 +72,8 @@ class OAuthServer(Server):
     def validate_access_token(self, client_key, access_token):
 
         try:
-            t = Token.objects.filter(client_key__key=client_key, key=access_token, token_type=2)
+            t = Token.objects.filter(client_key__key=client_key,
+                                     key=access_token, token_type=2)
         except ObjectDoesNotExist:
             return False
 
@@ -80,7 +85,8 @@ class OAuthServer(Server):
     def validate_redirect_uri(self, client_key, redirect_uri):
 
         try:
-            c = ClientCredential.objects.filter(key=client_key, callback=redirect_uri)
+            c = ClientCredential.objects.filter(key=client_key,
+                                                callback=redirect_uri)
         except ObjectDoesNotExist:
             return False
 
@@ -89,11 +95,15 @@ class OAuthServer(Server):
         else:
             return False
 
-    def validate_realm(self, client_key, access_token, uri=None, required_realm=None):
+    def validate_realm(self, client_key, access_token,
+                       uri=None, required_realm=None):
 
         if required_realm:
             try:
-                r = Realm.objects.filter(client_key__key=client_key, access_token=access_token, name=required_realm)
+                r = Realm.objects.filter(
+                    client_key__key=client_key,
+                    access_token=access_token,
+                    name=required_realm)
             except ObjectDoesNotExist:
                 return False
 
@@ -143,7 +153,10 @@ class OAuthServer(Server):
     def get_request_token_secret(self, client_key, request_token):
 
         try:
-            t = Token.objects.filter(client_key__key=client_key, key=request_token, token_type=1)
+            t = Token.objects.filter(
+                client_key__key=client_key,
+                key=request_token,
+                token_type=1)
         except ObjectDoesNotExist:
             return False
 
@@ -155,7 +168,10 @@ class OAuthServer(Server):
     def get_access_token_secret(self, client_key, access_token):
 
         try:
-            t = Token.objects.filter(client_key__key=client_key, key=access_token, token_type=2)
+            t = Token.objects.filter(
+                client_key__key=client_key,
+                key=access_token,
+                token_type=2)
         except ObjectDoesNotExist:
             return False
 
