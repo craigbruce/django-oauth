@@ -4,12 +4,14 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms.models import ModelForm
 
+
 class Resource(models.Model):
     name = models.CharField(max_length=100)
     url = models.URLField()
 
     def __unicode__(self):
         return self.name
+
 
 class ClientCredential(models.Model):
     key = models.CharField(max_length=30, blank=True)
@@ -28,10 +30,12 @@ class ClientCredential(models.Model):
             self.secret = User.objects.make_random_password(length=30)
         super(ClientCredential, self).save(*args, **kwargs)
 
+
 class ClientCredentialForm(ModelForm):
     class Meta:
         model = ClientCredential
-        fields = ('name', 'callback' )
+        fields = ('name', 'callback')
+
 
 class Nonce(models.Model):
     nonce = models.CharField(max_length=30)
@@ -43,11 +47,13 @@ class Nonce(models.Model):
     def __unicode__(self):
         return self.nonce
 
+
 class TokenType(models.Model):
     token_type = models.CharField(max_length=10)
 
     def __unicode__(self):
         return self.token_type
+
 
 class Token(models.Model):
     token_type = models.ForeignKey(TokenType)
@@ -63,6 +69,7 @@ class Token(models.Model):
         if not self.secret:
             self.secret = User.objects.make_random_password(length=30)
         super(Token, self).save(*args, **kwargs)
+
 
 class Realm(models.Model):
     name = models.CharField(max_length=50)

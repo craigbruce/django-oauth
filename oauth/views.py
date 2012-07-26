@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from oauthlib.oauth1.rfc5849.utils import urlencode #Django also has an urlencode method
+from oauthlib.oauth1.rfc5849.utils import urlencode  # Django also has an urlencode method
 from oauth.server import OAuthServer
+
 
 def temporary_credentials_request(request):
 
@@ -8,7 +9,6 @@ def temporary_credentials_request(request):
         t = 'Auth present'
     else:
         t = 'missing'
-
 
 #    response = urlencode({
 #        'realm': 1,
@@ -32,12 +32,13 @@ def temporary_credentials_request(request):
     #response = "%s %s" % request.META['Authorization'], request.META['QUERY_STRING']
     response = "%s" % t
 
-
-    return HttpResponse(response)#, content_type='application/x-www-form-urlencoded')
+    return HttpResponse(response)
     #return HttpResponse(response, content_type='application/x-www-form-urlencoded')
+
 
 def user_authorization(request):
     pass
+
 
 def token_request(request):
     pass

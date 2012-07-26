@@ -3,6 +3,7 @@ from django.test import TestCase
 from oauth.models import ClientCredential, Nonce, Token, Realm
 from oauth.server import OAuthServer
 
+
 class OAuthServerTest(TestCase):
     fixtures = ['test_entries.json']
 
@@ -25,62 +26,76 @@ class OAuthServerTest(TestCase):
         self.nonce = Nonce.objects.get(pk=1)
         #Credentials already used
         self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce.timestamp,
-                        self.nonce.nonce))
+                         self.nonce.nonce))
         #New timestamp
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654322,
-            self.nonce.nonce), (self.clientcredentials.key, 987654322, self.nonce.nonce, None))
+        self.assertEquals(
+            self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654322, self.nonce.nonce),
+            (self.clientcredentials.key, 987654322, self.nonce.nonce, None))
         #New nonce
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce.timestamp,
-            'abc'), (self.clientcredentials.key, self.nonce.timestamp, 'abc', None))
+        self.assertEquals(
+            self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce.timestamp, 'abc'),
+            (self.clientcredentials.key, self.nonce.timestamp, 'abc', None))
         #Incorrect client key
         self.assertFalse(self.oauthserver.validate_timestamp_and_nonce('m7UQ0_n8M0vUNmdwCgQ4kMCRAfO5A7l6pN4QEOePAE4=',
-            self.nonce.timestamp, self.nonce.nonce))
+                         self.nonce.timestamp, self.nonce.nonce))
 
     def test_validate_timestamp_and_nonce_request_token(self):
         self.nonce_request_token = Nonce.objects.get(pk=2)
         #Credentials already used
-        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_request_token.timestamp,
+        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_request_token.timestamp,
             self.nonce_request_token.nonce, self.nonce_request_token.request_token))
         #New timestamp
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654322,
+        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, 987654322,
             self.nonce_request_token.nonce, self.nonce_request_token.request_token),
             (self.clientcredentials.key, 987654322, self.nonce_request_token.nonce, self.nonce_request_token.request_token))
-        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654323,
+        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, 987654323,
             self.nonce_request_token.nonce, self.nonce_request_token.request_token),
             (self.clientcredentials.key, 987654323, self.nonce_request_token.nonce, None))
         #New nonce
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_request_token.timestamp,
+        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_request_token.timestamp,
             'abc', self.nonce_request_token.request_token),
             (self.clientcredentials.key, self.nonce_request_token.timestamp, 'abc', self.nonce_request_token.request_token))
-        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_request_token.timestamp,
+        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_request_token.timestamp,
             'abc', self.nonce_request_token.request_token),
             (self.clientcredentials.key, self.nonce_request_token.timestamp, 'abc', None))
         #Incorrect client key
-        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce('m7UQ0_n8M0vUNmdwCgQ4kMCRAfO5A7l6pN4QEOePAE4=',
-            self.nonce_request_token.timestamp, self.nonce_request_token.nonce, self.nonce_request_token.request_token))
+        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(
+            'm7UQ0_n8M0vUNmdwCgQ4kMCRAfO5A7l6pN4QEOePAE4=', self.nonce_request_token.timestamp,
+            self.nonce_request_token.nonce, self.nonce_request_token.request_token))
 
     def test_validate_timestamp_and_nonce_access_token(self):
         self.nonce_access_token = Nonce.objects.get(pk=3)
         #Credentials already used
-        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_access_token.timestamp,
+        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_access_token.timestamp,
             self.nonce_access_token.nonce, None, self.nonce_access_token.access_token))
         #New timestamp
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654322,
+        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, 987654322,
             self.nonce_access_token.nonce, None, self.nonce_access_token.access_token),
             (self.clientcredentials.key, 987654322, self.nonce_access_token.nonce, self.nonce_access_token.access_token))
-        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, 987654323,
+        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, 987654323,
             self.nonce_access_token.nonce, None, self.nonce_access_token.access_token),
             (self.clientcredentials.key, 987654323, self.nonce_access_token.nonce, None))
         #New nonce
-        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_access_token.timestamp,
+        self.assertEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_access_token.timestamp,
             'abc', None, self.nonce_access_token.access_token),
             (self.clientcredentials.key, self.nonce_access_token.timestamp, 'abc', self.nonce_access_token.access_token))
-        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(self.clientcredentials.key, self.nonce_access_token.timestamp,
+        self.assertNotEquals(self.oauthserver.validate_timestamp_and_nonce(
+            self.clientcredentials.key, self.nonce_access_token.timestamp,
             'abc', None, self.nonce_access_token.access_token),
             (self.clientcredentials.key, self.nonce_access_token.timestamp, 'abc', None))
         #Incorrect client key
-        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce('m7UQ0_n8M0vUNmdwCgQ4kMCRAfO5A7l6pN4QEOePAE4=',
-            self.nonce_access_token.timestamp, self.nonce_access_token.nonce, None, self.nonce_access_token.access_token))
+        self.assertFalse(self.oauthserver.validate_timestamp_and_nonce(
+            'm7UQ0_n8M0vUNmdwCgQ4kMCRAfO5A7l6pN4QEOePAE4=', self.nonce_access_token.timestamp,
+            self.nonce_access_token.nonce, None, self.nonce_access_token.access_token))
 
     def test_validate_client_key(self):
         self.assertEquals(self.oauthserver.validate_client_key(self.clientcredentials.key), self.clientcredentials.key)
@@ -190,4 +205,3 @@ class OAuthServerTest(TestCase):
 #
 #        print response.status_code
 #        print response.content
-

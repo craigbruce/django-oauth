@@ -3,6 +3,7 @@ from oauthlib.common import safe_string_equals
 from oauthlib.oauth1.rfc5849 import Server
 from oauth.models import ClientCredential, Nonce, Token, Realm, Resource
 
+
 class OAuthServer(Server):
 
     @property
@@ -28,13 +29,13 @@ class OAuthServer(Server):
         if n.exists():
             #client_key has been used before
             matches = n.filter(nonce=nonce, timestamp=timestamp, request_token=request_token,
-                access_token=access_token)
+                               access_token=access_token)
             if matches.exists():
                 #nonce/timestamp/request_token/access_token combo have been used before
                 return False
 
         Nonce.objects.create(nonce=nonce, timestamp=timestamp, key=c, request_token=request_token,
-            access_token=access_token)
+                             access_token=access_token)
 
         key = None
         if request_token:
