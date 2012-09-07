@@ -1,6 +1,6 @@
-Django==1.4
-pytz==2012c
-south==0.7.5
+Django==1.4.1
+pytz==2012d
+south==0.7.6
 oauthlib==0.3.0
 #git+https://github.com/idan/oauthlib.git#egg=oauthlib
 pep8==1.3.3
