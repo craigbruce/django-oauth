@@ -1,8 +1,14 @@
 import os
 from setuptools import setup, find_packages
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+def read_file(filename):
+    """Read a file into a string"""
+    path = os.path.abspath(os.path.dirname(__file__))
+    filepath = os.path.join(path, filename)
+    try:
+        return open(filepath).read()
+    except IOError:
+        return ''
 
 setup(
     name='django-{{ app_name }}',
@@ -15,12 +21,12 @@ setup(
     url='https://github.com/craigbruce/django-oauthlib',
     packages=find_packages(),
     include_package_data=True,
-    long_description=read('README.rst'),
+    long_description=read_file('README.rst'),
     install_requires = ['docutils>=0.3'],
     test_suite="runtests.runtests",
     zip_safe=False,
     requires=[
-        'django(==1.4)',
+        'django(>=1.4)',
         'oauthlib(>=0.3.0)',
     ],
     classifiers=[
@@ -32,5 +38,5 @@ setup(
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        ],
+    ],
 )
