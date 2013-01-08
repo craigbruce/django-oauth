@@ -11,11 +11,11 @@ def read_file(filename):
         return ''
 
 setup(
-    name='django-{{ app_name }}',
-    version=__import__('{{ app_name }}').__version__,
+    name='django-oauth',
+    version=__import__('oauth').__version__,
     author='Craig Bruce',
     author_email='craigbruce@gmail.com',
-    description=u' '.join(__import__('{{ app_name }}').__doc__.splitlines()).strip(),
+    description=u' '.join(__import__('oauth').__doc__.splitlines()).strip(),
     license='BSD',
     keywords='django oauth provider',
     url='https://github.com/craigbruce/django-oauthlib',
