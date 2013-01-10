@@ -11,9 +11,9 @@ env:
 
 install:
   - pip install $DJANGO
-  - pip install pytz==2012d --use-mirrors
+  - pip install pytz==2012j --use-mirrors
   - pip install south==0.7.6 --use-mirrors
-  - pip install oauthlib==0.3 --use-mirrors
+  - pip install oauthlib==0.3.4 --use-mirrors
 
 script:
   - python runtests.py
