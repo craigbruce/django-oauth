@@ -5,16 +5,13 @@ from oauth.server import OAuthServer
 
 
 class OAuthServerTest(TestCase):
-    fixtures = ['test_entries.json']
+    fixtures = ['test_user.json', 'test_entries.json']
 
     def setUp(self):
         super(OAuthServerTest, self).setUp()
 
         # Credentials
-        self.username = 'testuser'
-        self.password = 'pass'
-        self.user = User.objects.create_user(
-            self.username, 'test@example.com', self.password)
+        self.user = User.objects.get(pk=1)
 
         # Object to test on
         self.clientcredentials = ClientCredential.objects.get(pk=1)
@@ -279,19 +276,19 @@ class OAuthServerTest(TestCase):
 #
 #        uri, headers, body = c.sign(u'http://127.0.0.1:8001/initiate/')
 
-        #TODO nonce/timestamp/signature will change
-        self.assertEqual(
-            headers,
-            {
-                u'Authorization': u'OAuth oauth_nonce='
-                                  u'"110880830699442379541341263567",'
-                u'oauth_timestamp="1341263567", oauth_version="1.0",'
-                u'oauth_signature_method="HMAC-SHA1",'
-                u'oauth_consumer_key=self.clientcredentials.key,'
-                u'oauth_callback=self.clientcredentials.callback,'
-                u'oauth_signature="1emEeMqMx1vgjKEwdwyrz57%2FyTE%3D"',
-            }
-        )
+#        #TODO nonce/timestamp/signature will change
+#        self.assertEqual(
+#            headers,
+#            {
+#                u'Authorization': u'OAuth oauth_nonce='
+#                                  u'"110880830699442379541341263567",'
+#                u'oauth_timestamp="1341263567", oauth_version="1.0",'
+#                u'oauth_signature_method="HMAC-SHA1",'
+#                u'oauth_consumer_key=self.clientcredentials.key,'
+#                u'oauth_callback=self.clientcredentials.callback,'
+#                u'oauth_signature="1emEeMqMx1vgjKEwdwyrz57%2FyTE%3D"',
+#            }
+#        )
 
 #        s = OAuthServer()
 #        self.assertTrue(s.verify_request(uri, body=body, headers=headers))
