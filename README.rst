@@ -37,3 +37,9 @@ License
 -------
 
 django-oauthlib is licensed under the BSD license, see LICENSE.
+
+
+.. image:: https://d2weczhvl823v0.cloudfront.net/craigbruce/django-oauth/trend.png
+   :alt: Bitdeli badge
+   :target: https://bitdeli.com/free
+
