@@ -5,7 +5,7 @@ from oauth.server import OAuthServer
 
 
 class OAuthServerTest(TestCase):
-    fixtures = ['test_user.json', 'test_entries.json']
+    fixtures = ['initial_data.json', 'test_user.json', 'test_entries.json']
 
     def setUp(self):
         super(OAuthServerTest, self).setUp()
