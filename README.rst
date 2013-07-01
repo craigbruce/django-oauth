@@ -1,6 +1,10 @@
 django-oauthlib
 ===============
 
+..note::
+	Given a flurry of other django oauth related projects having cropped up. I suggest you try one of them out. `Django OAuth Toolkit <https://github.com/evonove/django-oauth-toolkit>`_ looks very promising, for example.
+
+
 An OAuth provider built on `oauthlib <https://github.com/idan/oauthlib/>`_ wrapped with Django. Currently targeting OAuth 1.0. This project is under (slow) development.
 
 .. image:: https://travis-ci.org/craigbruce/django-oauth.png?branch=master
@@ -37,9 +41,3 @@ License
 -------
 
 django-oauthlib is licensed under the BSD license, see LICENSE.
-
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/craigbruce/django-oauth/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
-
