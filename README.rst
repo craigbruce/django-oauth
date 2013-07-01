@@ -1,7 +1,7 @@
 django-oauthlib
 ===============
 
-..note::
+.. note::
 	Given a flurry of other django oauth related projects having cropped up. I suggest you try one of them out. `Django OAuth Toolkit <https://github.com/evonove/django-oauth-toolkit>`_ looks very promising, for example.
 
 
